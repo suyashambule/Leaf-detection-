@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Classification</title>
+</head>
+<body>
+    <h1>Upload a food image for classification</h1>
+    
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Upload and Predict</button>
+    </form>
+
+    <h2>Prediction Result:</h2>
+    <p id="predictionResult"></p>
+    <p id="confidenceResult"></p>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('predictionResult').textContent = 'Error: ' + data.error;
+                    document.getElementById('confidenceResult').textContent = '';
+                } else {
+                    document.getElementById('predictionResult').textContent = 'Predicted Class: ' + data.prediction;
+                    document.getElementById('confidenceResult').textContent = 'Confidence: ' + data.confidence;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
