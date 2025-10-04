@@ -105,19 +105,6 @@ features = extract_features(mask, img)
 print(features)
 ```
 
-### API and Functionality Overview
-
-The following Mermaid diagram illustrates the high-level workflow for leaf detection and analysis:
-
-```mermaid
-flowchart TD
-    A[Input Leaf Image] --> B[Preprocessing]
-    B --> C[Segmentation]
-    C --> D[Feature Extraction]
-    D --> E[Classification (Optional)]
-    E --> F[Visualization & Output]
-```
-
 - **Preprocessing**: Resizing, denoising, and color normalization.
 - **Segmentation**: Isolating leaf from background using thresholding or edge detection.
 - **Feature Extraction**: Computing shape, color, and texture features.
